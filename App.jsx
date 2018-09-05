@@ -74,22 +74,51 @@ class Calculator extends React.Component {
 			previousNum: null
 		});
 	}
+	clearCurrentClick() {
+		this.setState({
+			currentNum: 0
+		});
+	}
+	changeSign() {
+		this.calculateResult();
+		this.setState({
+			result: -this.state.result
+		});
+	}
 	render() {
 		return (
 			<div>
 				<div className="result">
 					{this.state.currentNum ? this.state.currentNum : this.state.result}
 				</div>
-				<div className="numbers">
-					{this.state.numbers.map((num) => <Button value={num} onClick={() => this.handleNumberClick(num)} />)}
-				</div>
-				<div className="ops">
-					<Button value="+" onClick={() => this.handleOperationClick('+')} />
-					<Button value="-" onClick={() => this.handleOperationClick('-')} />
-					<Button value="*" onClick={() => this.handleOperationClick('*')} />
+				<div class="row">
+					<Button value="AC" onClick={() => this.clearClick()} />
+					<Button value="C" onClick={() => this.clearCurrentClick()} />
+					<Button value="+/-" onClick={() => this.changeSign()} />
 					<Button value="/" onClick={() => this.handleOperationClick('/')} />
+				</div>
+				<div class="row">
+					<Button value="7" onClick={() => this.handleNumberClick(7)} />
+					<Button value="8" onClick={() => this.handleNumberClick(8)} />
+					<Button value="9" onClick={() => this.handleNumberClick(9)} />
+					<Button value="*" onClick={() => this.handleOperationClick('*')} />
+				</div>
+				<div class="row">
+					<Button value="6" onClick={() => this.handleNumberClick(6)} />
+					<Button value="5" onClick={() => this.handleNumberClick(5)} />
+					<Button value="4" onClick={() => this.handleNumberClick(4)} />
+					<Button value="-" onClick={() => this.handleOperationClick('-')} />
+				</div>
+				<div class="row">
+					<Button value="3" onClick={() => this.handleNumberClick(3)} />
+					<Button value="2" onClick={() => this.handleNumberClick(2)} />
+					<Button value="1" onClick={() => this.handleNumberClick(1)} />
+					<Button value="+" onClick={() => this.handleOperationClick('+')} />
+				</div>
+				<div class="row">
+					<Button className="zero" value="0" onClick={() => this.handleNumberClick(0)} />
+					<Button value="." onClick={() => this.handleNumberClick('.')} />
 					<Button value="=" onClick={() => this.handleOperationClick('=')} />
-					<Button value="C" onClick={() => this.clearClick()} />
 				</div>
 			</div>
 		);
