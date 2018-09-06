@@ -4,7 +4,6 @@ class Calculator extends React.Component {
 	constructor() {
 		super();
 		this.state ={
-			numbers: [0,1,2,3,4,5,6,7,8,9],
 			result: null,
 			currentOp: null,
 			currentNum: null,
@@ -12,27 +11,20 @@ class Calculator extends React.Component {
 		}
 	}
 	calculateResult() {
-		var res = null;
-		if(this.state.previousNum) {
-			switch(this.state.currentOp) {
-				case '+':
-					res = this.state.previousNum + parseFloat(this.state.currentNum);
-					break;
-				case '-':
-					res = this.state.previousNum - parseFloat(this.state.currentNum);
-					break;
-				case '*':
-					res = this.state.previousNum * parseFloat(this.state.currentNum);
-					break;
-				case '/':
-					res = this.state.previousNum / parseFloat(this.state.currentNum);
-					break;
-				case '=':
-					res = parseFloat(this.state.currentNum);
-					break;
-			}
-		} else {
-			res = parseFloat(this.state.currentNum);
+		var res = parseFloat(this.state.currentNum);
+		switch(this.state.currentOp) {
+			case '+':
+				res = this.state.previousNum + parseFloat(this.state.currentNum);
+				break;
+			case '-':
+				res = this.state.previousNum - parseFloat(this.state.currentNum);
+				break;
+			case '*':
+				res = this.state.previousNum * parseFloat(this.state.currentNum);
+				break;
+			case '/':
+				res = this.state.previousNum / parseFloat(this.state.currentNum);
+				break;
 		}
 		this.setState({ result: res, previousNum: res, currentNum: null });
 	}
@@ -48,8 +40,8 @@ class Calculator extends React.Component {
 		}
 	}
 	handleOperationClick(op) {
+		this.calculateResult();
 		if(this.state.currentNum) {
-			this.calculateResult();
 			switch(op) {
 				case '+':
 					this.setState({ currentOp: '+' });
@@ -62,6 +54,10 @@ class Calculator extends React.Component {
 					break;
 				case '/':
 					this.setState({ currentOp: '/' });
+					break;
+				case '=':
+					this.setState({ currentOp: '=' });
+					this.calculateResult();
 					break;
 			}
 		}
@@ -87,38 +83,76 @@ class Calculator extends React.Component {
 	}
 	render() {
 		return (
-			<div>
+			<div className="calc">
+				<div>{this.state.currentNum}   {this.state.currentOp}</div>
 				<div className="result">
-					{this.state.currentNum ? this.state.currentNum : this.state.result}
+					<p>{this.state.currentNum ? this.state.currentNum : this.state.result}</p>
+				</div>
+				<Grid onClick={i => this.handleNumberClick(i)} onOpClick={x => this.handleOperationClick(x)} clearClick={() => this.clearClick()} clearCurrentClick={() => this.clearCurrentClick()} changeSign={() => this.changeSign()} />
+			</div>
+		);
+	}
+}
+
+class Grid extends React.Component {
+	renderButton(i) {
+		if(i == 0) {
+			return (
+	    		<Button
+	        		value={i}
+	        		onClick={() => this.props.onClick(i)}
+	        		classVal="zero"
+	      		/>
+	    	);
+		} else {
+		    return (
+	    		<Button
+	        		value={i}
+	        		onClick={() => this.props.onClick(i)}
+	      		/>
+	    	);
+		}
+  	}
+  	renderOpButton(x) {
+	    return (
+    		<Button
+        		value={x}
+        		onClick={() => this.props.onOpClick(x)}
+        		classVal="ops"
+      		/>
+    	);
+  	}
+	render() {
+		return(
+			<div className="grid">
+				<div class="row">
+					<Button value="AC" classVal="top-op" onClick={this.props.clearClick} />
+					<Button value="C" classVal="top-op" onClick={this.props.clearCurrentClick} />
+					<Button value="+/-" classVal="top-op" onClick={this.props.changeSign} />
+					{ this.renderOpButton('/') }
 				</div>
 				<div class="row">
-					<Button value="AC" onClick={() => this.clearClick()} />
-					<Button value="C" onClick={() => this.clearCurrentClick()} />
-					<Button value="+/-" onClick={() => this.changeSign()} />
-					<Button value="/" onClick={() => this.handleOperationClick('/')} />
+					{ this.renderButton(7) }
+					{ this.renderButton(8) }
+					{ this.renderButton(9) }
+					{ this.renderOpButton('*') }
 				</div>
 				<div class="row">
-					<Button value="7" onClick={() => this.handleNumberClick(7)} />
-					<Button value="8" onClick={() => this.handleNumberClick(8)} />
-					<Button value="9" onClick={() => this.handleNumberClick(9)} />
-					<Button value="*" onClick={() => this.handleOperationClick('*')} />
+					{ this.renderButton(4) }
+					{ this.renderButton(5) }
+					{ this.renderButton(6) }
+					{ this.renderOpButton('-') }
 				</div>
 				<div class="row">
-					<Button value="6" onClick={() => this.handleNumberClick(6)} />
-					<Button value="5" onClick={() => this.handleNumberClick(5)} />
-					<Button value="4" onClick={() => this.handleNumberClick(4)} />
-					<Button value="-" onClick={() => this.handleOperationClick('-')} />
+					{ this.renderButton(1) }
+					{ this.renderButton(2) }
+					{ this.renderButton(3) }
+					{ this.renderOpButton('+') }
 				</div>
 				<div class="row">
-					<Button value="3" onClick={() => this.handleNumberClick(3)} />
-					<Button value="2" onClick={() => this.handleNumberClick(2)} />
-					<Button value="1" onClick={() => this.handleNumberClick(1)} />
-					<Button value="+" onClick={() => this.handleOperationClick('+')} />
-				</div>
-				<div class="row">
-					<Button className="zero" value="0" onClick={() => this.handleNumberClick(0)} />
-					<Button value="." onClick={() => this.handleNumberClick('.')} />
-					<Button value="=" onClick={() => this.handleOperationClick('=')} />
+					{ this.renderButton(0) }
+					{ this.renderButton('.') }
+					{ this.renderOpButton('=') }
 				</div>
 			</div>
 		);
@@ -128,7 +162,7 @@ class Calculator extends React.Component {
 class Button extends React.Component {
 	render() {
 		return(
-			<button onClick={this.props.onClick}>
+			<button onClick={this.props.onClick} class={this.props.classVal}>
 				{this.props.value}
 			</button>
 		);

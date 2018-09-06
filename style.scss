@@ -1,0 +1,51 @@
+#app {
+	display: inline-block;
+	font-size: 40px;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
+	margin: 0 auto;
+	.result {
+		height: 60px;
+		text-align: right;
+		padding: 10px 20px;
+		vertical-align: bottom;
+		color: #fffaeb;
+		background: #464545;
+		letter-spacing: .1em;
+		p {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: bold;
+			font-size: 60px; 
+			margin: 0;
+			line-height: 60px;
+		}
+	}
+	.grid {
+		.row {
+			button {
+				width: 80px;
+				height: 80px;
+				font-size: 40px;
+				font-weight: bold;
+				outline: none;
+				box-shadow: none;
+				border: none;
+				background: #2f2f2f;
+				color: #dbc8ee;
+				padding: 10px;
+				&:hover, &:focus {
+					background: #363636;
+				}
+				&.zero {
+					width: 160px;
+				}
+				&.top-op {
+					color: #aa9bd9;
+				}
+				&.ops {
+					color: #9eceee;
+				}
+			}
+		}
+	}
+}
