@@ -131,31 +131,31 @@ class Grid extends React.Component {
 	render() {
 		return(
 			<div className="grid">
-				<div class="row">
+				<div className="row">
 					<Button value="AC" classVal="top-op" onClick={this.props.clearClick} />
 					<Button value="C" classVal="top-op" onClick={this.props.clearCurrentClick} />
 					<Button value="+/-" classVal="top-op" onClick={this.props.changeSign} />
 					{ this.renderOpButton('/') }
 				</div>
-				<div class="row">
+				<div className="row">
 					{ this.renderButton(7) }
 					{ this.renderButton(8) }
 					{ this.renderButton(9) }
 					{ this.renderOpButton('*') }
 				</div>
-				<div class="row">
+				<div className="row">
 					{ this.renderButton(4) }
 					{ this.renderButton(5) }
 					{ this.renderButton(6) }
 					{ this.renderOpButton('-') }
 				</div>
-				<div class="row">
+				<div className="row">
 					{ this.renderButton(1) }
 					{ this.renderButton(2) }
 					{ this.renderButton(3) }
 					{ this.renderOpButton('+') }
 				</div>
-				<div class="row">
+				<div className="row">
 					{ this.renderButton(0) }
 					{ this.renderButton('.') }
 					{ this.renderOpButton('=') }
@@ -168,7 +168,7 @@ class Grid extends React.Component {
 class Button extends React.Component {
 	render() {
 		return(
-			<button onClick={this.props.onClick} class={this.props.classVal}>
+			<button onClick={this.props.onClick} className={this.props.classVal}>
 				{this.props.value}
 			</button>
 		);

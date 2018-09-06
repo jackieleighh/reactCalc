@@ -1,10 +1,10 @@
-#app {
+#calculator-widget {
   display: inline-block;
   font-size: 40px;
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   margin: 0 auto; }
-  #app .result {
+  #calculator-widget .result {
     height: 60px;
     text-align: right;
     padding: 10px 20px;
@@ -12,13 +12,13 @@
     color: #fffaeb;
     background: #464545;
     letter-spacing: .1em; }
-    #app .result p {
+    #calculator-widget .result p {
       font-family: 'Quicksand', sans-serif;
       font-weight: bold;
       font-size: 60px;
       margin: 0;
       line-height: 60px; }
-  #app .grid .row button {
+  #calculator-widget .grid .row button {
     width: 80px;
     height: 80px;
     font-size: 40px;
@@ -29,13 +29,13 @@
     background: #2f2f2f;
     color: #dbc8ee;
     padding: 10px; }
-    #app .grid .row button:hover, #app .grid .row button:focus {
+    #calculator-widget .grid .row button:hover, #calculator-widget .grid .row button:focus {
       background: #363636; }
-    #app .grid .row button.zero {
+    #calculator-widget .grid .row button.zero {
       width: 160px; }
-    #app .grid .row button.top-op {
+    #calculator-widget .grid .row button.top-op {
       color: #aa9bd9; }
-    #app .grid .row button.ops {
+    #calculator-widget .grid .row button.ops {
       color: #9eceee; }
 
 /*# sourceMappingURL=style.css.map */
