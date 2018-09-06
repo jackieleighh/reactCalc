@@ -9,6 +9,69 @@ class Calculator extends React.Component {
 			currentNum: null,
 			previousNum: null
 		}
+
+		document.addEventListener("keydown", this.handleKeyDown.bind(this));
+	}
+	handleKeyDown(e) {
+		switch(e.key){
+			case '0':
+				this.handleNumberClick(0);
+				break;
+			case '1':
+				this.handleNumberClick(1);
+				break;
+			case '2':
+				this.handleNumberClick(2);
+				break;
+			case '3':
+				this.handleNumberClick(3);
+				break;
+			case '4':
+				this.handleNumberClick(4);
+				break;
+			case '5':
+				this.handleNumberClick(5);
+				break;
+			case '6':
+				this.handleNumberClick(6);
+				break;
+			case '7':
+				this.handleNumberClick(7);
+				break;
+			case '8': 
+				this.handleNumberClick(8);
+				break;
+			case '9':
+				this.handleNumberClick(9);
+				break;
+			case '.':
+				this.handleNumberClick('.');
+				break;
+			case '=':
+				this.handleOperationClick('=');
+				break;
+			case '+':
+				this.handleOperationClick('+');
+				break;
+			case '-':
+				this.handleOperationClick('-');
+				break;
+			case '*':
+				this.handleOperationClick('*');
+				break;
+			case '/':
+				this.handleOperationClick('/');
+				break;
+			case 'C':
+				this.clearClick();
+				break;
+			case 'c':
+				this.clearClick();
+				break;
+			case 'Backspace':
+				this.handleRemoveNumberClick();
+				break;
+		}
 	}
 	calculateResult() {
 		var num = null, res = null;
@@ -45,6 +108,11 @@ class Calculator extends React.Component {
 			});
 		}
 	}
+	handleRemoveNumberClick() {
+		if(this.state.currentNum != 0 && this.state.currentNum != null) {
+			this.setState({ currentNum: this.state.currentNum.slice(0, -1) });
+		}
+	}
 	handleOperationClick(op) {
 		if(this.state.currentNum != null) {
 			this.calculateResult();
@@ -76,11 +144,6 @@ class Calculator extends React.Component {
 			previousNum: null
 		});
 	}
-	clearCurrentClick() {
-		this.setState({
-			currentNum: 0
-		});
-	}
 	changeSign() {
 		this.calculateResult();
 		this.setState({
@@ -94,7 +157,7 @@ class Calculator extends React.Component {
 				<div className="result">
 					<p>{this.state.currentNum ? this.state.currentNum : this.state.result}</p>
 				</div>
-				<Grid onClick={i => this.handleNumberClick(i)} onOpClick={x => this.handleOperationClick(x)} clearClick={() => this.clearClick()} clearCurrentClick={() => this.clearCurrentClick()} changeSign={() => this.changeSign()} />
+				<Grid onClick={i => this.handleNumberClick(i)} onOpClick={x => this.handleOperationClick(x)} clearClick={() => this.clearClick()} clearCurrentClick={() => this.handleRemoveNumberClick()} changeSign={() => this.changeSign()} />
 			</div>
 		);
 	}

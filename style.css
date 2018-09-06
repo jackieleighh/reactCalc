@@ -5,7 +5,7 @@
   font-weight: bold;
   margin: 0 auto; }
   #calculator-widget .result {
-    height: 60px;
+    height: 80px;
     text-align: right;
     padding: 10px 20px;
     vertical-align: bottom;
@@ -28,7 +28,10 @@
     border: none;
     background: #2f2f2f;
     color: #dbc8ee;
-    padding: 10px; }
+    padding: 10px;
+    transition: ease-in-out .25s;
+    -webkit-transition: ease-in-out .25s;
+    -moz-transition: ease-in-out .25s; }
     #calculator-widget .grid .row button:hover, #calculator-widget .grid .row button:focus {
       background: #363636; }
     #calculator-widget .grid .row button.zero {

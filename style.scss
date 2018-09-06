@@ -33,6 +33,9 @@
 				background: #2f2f2f;
 				color: #dbc8ee;
 				padding: 10px;
+				transition: ease-in-out .25s;
+				-webkit-transition: ease-in-out .25s;
+				-moz-transition: ease-in-out .25s;
 				&:hover, &:focus {
 					background: #363636;
 				}
