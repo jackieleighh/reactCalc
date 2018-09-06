@@ -4,26 +4,32 @@ class Calculator extends React.Component {
 	constructor() {
 		super();
 		this.state ={
-			result: null,
+			result: 0,
 			currentOp: null,
 			currentNum: null,
 			previousNum: null
 		}
 	}
 	calculateResult() {
-		var res = parseFloat(this.state.currentNum);
+		var num = null, res = null;
+		if(this.state.currentNum == null) {
+			num = parseFloat(this.state.result);
+		} else {
+			num = parseFloat(this.state.currentNum);
+		}
+		res = num;
 		switch(this.state.currentOp) {
 			case '+':
-				res = this.state.previousNum + parseFloat(this.state.currentNum);
+				res = this.state.previousNum + num;
 				break;
 			case '-':
-				res = this.state.previousNum - parseFloat(this.state.currentNum);
+				res = this.state.previousNum - num;
 				break;
 			case '*':
-				res = this.state.previousNum * parseFloat(this.state.currentNum);
+				res = this.state.previousNum * num;
 				break;
 			case '/':
-				res = this.state.previousNum / parseFloat(this.state.currentNum);
+				res = this.state.previousNum / num;
 				break;
 		}
 		this.setState({ result: res, previousNum: res, currentNum: null });
@@ -40,26 +46,26 @@ class Calculator extends React.Component {
 		}
 	}
 	handleOperationClick(op) {
-		this.calculateResult();
-		if(this.state.currentNum) {
-			switch(op) {
-				case '+':
-					this.setState({ currentOp: '+' });
-					break;
-				case '-':
-					this.setState({ currentOp: '-' });
-					break;
-				case '*':
-					this.setState({ currentOp: '*' });
-					break;
-				case '/':
-					this.setState({ currentOp: '/' });
-					break;
-				case '=':
-					this.setState({ currentOp: '=' });
-					this.calculateResult();
-					break;
-			}
+		if(this.state.currentNum != null) {
+			this.calculateResult();
+		}
+		switch(op) {
+			case '+':
+				this.setState({ currentOp: '+' });
+				break;
+			case '-':
+				this.setState({ currentOp: '-' });
+				break;
+			case '*':
+				this.setState({ currentOp: '*' });
+				break;
+			case '/':
+				this.setState({ currentOp: '/' });
+				break;
+			case '=':
+				this.setState({ currentOp: '=' });
+				this.calculateResult();
+				break;
 		}
 	}
 	clearClick() {
@@ -78,13 +84,13 @@ class Calculator extends React.Component {
 	changeSign() {
 		this.calculateResult();
 		this.setState({
-			result: -this.state.result
+			result: this.state.result*-1, 
+			previousNum: this.state.previousNum*-1
 		});
 	}
 	render() {
 		return (
 			<div className="calc">
-				<div>{this.state.currentNum}   {this.state.currentOp}</div>
 				<div className="result">
 					<p>{this.state.currentNum ? this.state.currentNum : this.state.result}</p>
 				</div>
